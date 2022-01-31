@@ -31,6 +31,7 @@ public class JpaMain {
          */
         try {
             //영속
+//            Member member1 = new Member();
             Member member1 = new Member(200L, "A");
             em.persist(member1);
 
