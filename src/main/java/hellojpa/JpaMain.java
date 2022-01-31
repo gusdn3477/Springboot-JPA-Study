@@ -24,6 +24,11 @@ public class JpaMain {
         FlushModeType.AUTO : 커밋이나 쿼리를 실행할 때 플러시(기본값)
         FlushModeType.COMMIT : 커밋할 때만 플러시
         */
+
+        /*
+            준영속 상태
+            영속 => 준영속
+         */
         try {
             //영속
             Member member1 = new Member(200L, "A");
