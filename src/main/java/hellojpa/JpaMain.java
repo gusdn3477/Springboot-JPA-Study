@@ -31,22 +31,22 @@ public class JpaMain {
             // 저장하는 코드
             Team team = new Team();
             team.setName("TeamA");
+//            team.getMembers().add(member);
             em.persist(team);
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
+//            member.changeTeam(team);
             em.persist(member);
 
+            team.addMember(member);
+
+            /*
+            양방향 연관관계 셋팅 시에는 양쪽 다 값을 넣어주는 것이 바람직하다.(순수 객체 상태 고려)
+             */
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member m : members) {
-                System.out.println("m = " + m.getUsername());
-            }
             tx.commit();
         } catch (Exception e){
             tx.rollback();
