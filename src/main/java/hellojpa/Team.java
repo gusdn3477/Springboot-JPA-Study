@@ -13,6 +13,8 @@ public class Team {
     private Long id;
     private String name;
 
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
     /*
     mappedBy = JPA의 멘탈붕괴 난이도..
     객체와 테이블의 관계를 맺는 차이
@@ -36,9 +38,6 @@ public class Team {
     - 가짜 매핑 - 주인의 반대편(Team.members)
     - 자동차와 바퀴, 자동차가 비즈니스적으로는 훨씬 중요하나 바퀴가 연관관계의 주인이 된다.
    */
-    @OneToMany(mappedBy = "team") // 반대편에 걸려있는 변수명!(Team team)
-    private List<Member> members = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -53,18 +52,5 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-
-    public void addMember(Member member) {
-        member.setTeam(this);
-        members.add(member);
     }
 }
