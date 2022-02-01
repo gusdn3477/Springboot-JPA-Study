@@ -13,7 +13,13 @@ public class Team {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    /*
+    일대다 단방향 매핑의 경우 엔티티가 관리하는 외래 키가 다른 테이블에 있다.
+    연관관계 관계를 위해 추가로 UPDATE SQL문을 실행하게 된다.
+    일대다 단방향 매핑보다는 다대일 양방향 매핑을 사용하자!
+     */
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
     /*
     mappedBy = JPA의 멘탈붕괴 난이도..
@@ -52,5 +58,13 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }

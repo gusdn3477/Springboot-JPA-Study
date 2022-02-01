@@ -28,24 +28,16 @@ public class JpaMain {
             영속 => 준영속
          */
         try {
-            // 저장하는 코드
-            Team team = new Team();
-            team.setName("TeamA");
-//            team.getMembers().add(member);
-            em.persist(team);
-
             Member member = new Member();
             member.setUsername("member1");
-//            member.changeTeam(team);
+
             em.persist(member);
 
-            team.addMember(member);
-
-            /*
-            양방향 연관관계 셋팅 시에는 양쪽 다 값을 넣어주는 것이 바람직하다.(순수 객체 상태 고려)
-             */
-            em.flush();
-            em.clear();
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
+            //
+            em.persist(team);
 
             tx.commit();
         } catch (Exception e){

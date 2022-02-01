@@ -33,11 +33,10 @@ public class Member {
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
-
+    // 읽기 전용으로 설정. update를 하지 않음. 양방향 매핑과 유사함. 관리는 Team으로, 읽기는 Member로
+    // 일대다 양방향의 경우 공식적으로 존재하지 X, 가끔 사용하긴 하지만 다대일 양방향을 사용하자.
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID") // Member table과 매핑하는 코드
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
     private Team team;
 
     public Member(){
@@ -57,13 +56,5 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }
