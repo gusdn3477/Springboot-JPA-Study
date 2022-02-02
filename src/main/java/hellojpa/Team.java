@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team {
+public class Team extends BaseEntity{
 
     @Id
     @GeneratedValue
@@ -67,4 +67,5 @@ public class Team {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
+
 }

@@ -25,7 +25,7 @@ import java.util.List;
 // Enum에서 맨 앞에 새로운 요소가 추가되면, 기존 컬럼의 값은 예전 값으로 유지되고, 새로 들어오는 것만 업데이트 된 값이라 알아볼 수 없게 된다.
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue
