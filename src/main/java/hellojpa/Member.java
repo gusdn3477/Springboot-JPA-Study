@@ -24,6 +24,7 @@ import java.util.List;
 // Enum의 ORDINAL의 경우 숫자로 나타남.
 // Enum에서 맨 앞에 새로운 요소가 추가되면, 기존 컬럼의 값은 예전 값으로 유지되고, 새로 들어오는 것만 업데이트 된 값이라 알아볼 수 없게 된다.
 
+// 페치 조인, @EntityGraph, 배치 사이즈를 활용하여 LAZY 로딩을 활용해도 미리 데이터를 가져올 수 있다.
 @Entity
 public class Member extends BaseEntity{
 
@@ -37,8 +38,8 @@ public class Member extends BaseEntity{
 
     // 읽기 전용으로 설정. update를 하지 않음. 양방향 매핑과 유사함. 관리는 Team으로, 읽기는 Member로
     // 일대다 양방향의 경우 공식적으로 존재하지 X, 가끔 사용하긴 하지만 다대일 양방향을 사용하자.
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER) // 가급적 지연 로딩만 사용! (즉시 로딩은 예상치 못한 문제 발생, JPQL에서 N+1 문제도 발생시킨다.)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     public Member(){
