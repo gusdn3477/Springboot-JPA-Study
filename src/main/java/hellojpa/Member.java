@@ -26,7 +26,7 @@ import java.util.List;
 
 // 페치 조인, @EntityGraph, 배치 사이즈를 활용하여 LAZY 로딩을 활용해도 미리 데이터를 가져올 수 있다.
 @Entity
-public class Member extends BaseEntity{
+public class Member {
 
     @Id
     @GeneratedValue
@@ -36,14 +36,13 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-    // 읽기 전용으로 설정. update를 하지 않음. 양방향 매핑과 유사함. 관리는 Team으로, 읽기는 Member로
-    // 일대다 양방향의 경우 공식적으로 존재하지 X, 가끔 사용하긴 하지만 다대일 양방향을 사용하자.
-    @ManyToOne(fetch = FetchType.EAGER) // 가급적 지연 로딩만 사용! (즉시 로딩은 예상치 못한 문제 발생, JPQL에서 N+1 문제도 발생시킨다.)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    // 기간 Period
+    @Embedded
+    private Period workPeriod;
 
-    public Member(){
-    }
+    // 주소
+    @Embedded
+    private Address homeAddress;
 
     public Long getId() {
         return id;
@@ -61,12 +60,19 @@ public class Member extends BaseEntity{
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 }

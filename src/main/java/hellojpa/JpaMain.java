@@ -27,26 +27,13 @@ public class JpaMain {
             영속 => 준영속
          */
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
 
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            member1.setTeam(team);
-            em.persist(member1);
+            Member member = new Member();
+            member.setUsername("hello");
+            member.setHomeAddress(new Address("city", "street", "10000"));
+            member.setWorkPeriod(new Period());
 
-            em.flush();
-            em.clear();
-
-            Member m = em.find(Member.class, member1.getId());
-            System.out.println("m = " + m.getTeam().getClass());
-
-            System.out.println("=========================");
-            System.out.println("teamName = " + m.getTeam().getName());
-            System.out.println("=========================");
-
-
+            em.persist(member);
             tx.commit();
         } catch (Exception e){
             tx.rollback();
@@ -57,21 +44,21 @@ public class JpaMain {
         emf.close();
     }
 
-    public static void printMember(Member member) {
-        System.out.println("member = " + member.getUsername());
-    }
-
-    private static void printMemberAndTeam(Member member){
-        String username = member.getUsername();
-        System.out.println("username = " + username);
-
-        Team team = member.getTeam();
-        System.out.println("team = " + team.getName());
-    }
-
-    // 타입 비교는 무조건 instanceof로!
-    private static void logic(Member m1, Member m2){
-        System.out.println("m1 == m2 " + (m1 instanceof Member));
-        System.out.println("m1 == m2 " + (m2 instanceof Member));
-    }
+//    public static void printMember(Member member) {
+//        System.out.println("member = " + member.getUsername());
+//    }
+//
+//    private static void printMemberAndTeam(Member member){
+//        String username = member.getUsername();
+//        System.out.println("username = " + username);
+//
+//        Team team = member.getTeam();
+//        System.out.println("team = " + team.getName());
+//    }
+//
+//    // 타입 비교는 무조건 instanceof로!
+//    private static void logic(Member m1, Member m2){
+//        System.out.println("m1 == m2 " + (m1 instanceof Member));
+//        System.out.println("m1 == m2 " + (m2 instanceof Member));
+//    }
 }
